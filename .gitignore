@@ -1,0 +1,26 @@
+## Archivos de Visual Studio que NO se deben subir
+
+# Carpetas de compilación
+bin/
+obj/
+Debug/
+Release/
+.vs/
+
+# Archivos de usuario
+*.suo
+*.user
+*.userosscache
+
+# Archivos de configuración con contraseñas
+App.config
+ConnectionStrings.config
+
+# Paquetes NuGet
+packages/
+*.nupkg
+
+# Archivos temporales
+*.tmp
+*.log
+*.cache
