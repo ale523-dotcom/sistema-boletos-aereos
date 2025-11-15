@@ -25,8 +25,7 @@ public class PasajeroDAO
         {
             conexion = conexionDB.ObtenerConexion();
 
-            string query = @"INSERT INTO Pasajeros (Nombre, Apellido, FechaNacimiento, NumeroPasaporte, Nacionalidad, Email, Telefono) 
-                           VALUES (@nombre, @apellido, @fechaNacimiento, @numeroPasaporte, @nacionalidad, @email, @telefono)";
+            string query = "SELECT Id, Nombre, Apellido, FechaNacimiento, NumeroPasaporte, Nacionalidad, Email, Telefono FROM Pasajeros";
 
             MySqlCommand cmd = new MySqlCommand(query, conexion);
             cmd.Parameters.AddWithValue("@nombre", nombre);

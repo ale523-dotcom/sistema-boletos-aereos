@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Sistema_de_Boletos_Aéreos
@@ -16,7 +13,9 @@ namespace Sistema_de_Boletos_Aéreos
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            // CAMBIA AQUÍ: Ahora inicia con el Dashboard en lugar de Form1
+            Application.Run(new DashboardForm());
         }
     }
 }
