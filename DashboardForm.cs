@@ -55,9 +55,7 @@ namespace Sistema_de_Boletos_Aéreos
 
         private void btnVuelos_Click(object sender, EventArgs e)
         {
-            // TODO: Crear VueloForm
-            MessageBox.Show("El módulo de Gestión de Vuelos está en desarrollo.\n\nPróximamente podrás:\n• Crear vuelos\n• Asignar rutas\n• Programar horarios",
-                "En Desarrollo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                AbrirFormulario(new VueloForm(), "Gestión de Vuelos");
         }
 
         private void btnTripulacion_Click(object sender, EventArgs e)

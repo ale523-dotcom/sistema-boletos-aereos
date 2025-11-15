@@ -98,5 +98,10 @@ namespace Sistema_de_Boletos_Aéreos
                 btn.BackColor = colorFondo;
             };
         }
+
+        private void btnVuelos_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
