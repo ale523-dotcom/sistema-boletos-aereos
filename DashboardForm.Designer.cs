@@ -59,7 +59,7 @@
             this.lblSubtitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(240)))), ((int)(((byte)(241)))));
             this.lblSubtitulo.Location = new System.Drawing.Point(400, 75);
             this.lblSubtitulo.Name = "lblSubtitulo";
-            this.lblSubtitulo.Size = new System.Drawing.Size(400, 21);
+            this.lblSubtitulo.Size = new System.Drawing.Size(364, 21);
             this.lblSubtitulo.TabIndex = 1;
             this.lblSubtitulo.Text = "Sistema integral de gestión y reservación de vuelos";
             // 
@@ -70,7 +70,7 @@
             this.lblTitulo.ForeColor = System.Drawing.Color.White;
             this.lblTitulo.Location = new System.Drawing.Point(280, 20);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(640, 51);
+            this.lblTitulo.Size = new System.Drawing.Size(627, 51);
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "✈️ SISTEMA DE BOLETOS AÉREOS";
             // 
@@ -93,7 +93,7 @@
             this.lblOperaciones.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
             this.lblOperaciones.Location = new System.Drawing.Point(15, 15);
             this.lblOperaciones.Name = "lblOperaciones";
-            this.lblOperaciones.Size = new System.Drawing.Size(380, 30);
+            this.lblOperaciones.Size = new System.Drawing.Size(343, 30);
             this.lblOperaciones.TabIndex = 3;
             this.lblOperaciones.Text = "⚙️ OPERACIONES PRINCIPALES";
             // 
@@ -172,7 +172,7 @@
             this.lblCatalogos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
             this.lblCatalogos.Location = new System.Drawing.Point(15, 15);
             this.lblCatalogos.Name = "lblCatalogos";
-            this.lblCatalogos.Size = new System.Drawing.Size(290, 30);
+            this.lblCatalogos.Size = new System.Drawing.Size(273, 30);
             this.lblCatalogos.TabIndex = 5;
             this.lblCatalogos.Text = "📊 CATÁLOGOS BÁSICOS";
             // 
@@ -302,9 +302,10 @@
             this.lblVersion.ForeColor = System.Drawing.Color.White;
             this.lblVersion.Location = new System.Drawing.Point(30, 25);
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(320, 15);
+            this.lblVersion.Size = new System.Drawing.Size(221, 15);
             this.lblVersion.TabIndex = 0;
-            this.lblVersion.Text = "© 2025 Sistema de Boletos Aéreos | Versión 1.0 | UES en Línea";
+            this.lblVersion.Text = "Sistema de Boletos Aéreos | UES en Línea";
+            this.lblVersion.Click += new System.EventHandler(this.lblVersion_Click);
             // 
             // DashboardForm
             // 
@@ -332,6 +333,7 @@
             this.panelFooter.ResumeLayout(false);
             this.panelFooter.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         #endregion

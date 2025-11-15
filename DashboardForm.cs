@@ -149,5 +149,10 @@ namespace Sistema_de_Boletos_Aéreos
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void lblVersion_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
