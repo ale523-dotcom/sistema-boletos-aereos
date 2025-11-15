@@ -360,4 +360,5 @@
         private System.Windows.Forms.DataGridView dgvPasajeros;
         private System.Windows.Forms.GroupBox groupBox3;
     }
+    
 }

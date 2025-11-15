@@ -1,14 +1,9 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 public class TripulacionDAO
 {
-
     private ConexionDB conexionDB;
 
     public TripulacionDAO()
@@ -17,15 +12,18 @@ public class TripulacionDAO
     }
 
     // Insertar nueva tripulacion
-    public bool InsertarTripulacion(string nombre, string apellido, string identificacion, string cargo, int aerolineaId, DateTime fechaContratacion)
+    public bool InsertarTripulacion(string nombre, string apellido, string identificacion,
+                                    string cargo, int aerolineaId, DateTime fechaContratacion)
     {
         MySqlConnection conexion = null;
         try
         {
             conexion = conexionDB.ObtenerConexion();
 
-            string query = @"INSERT INTO Tripulacion (Nombre, Apellido, Identificacion, Cargo, AerolineaId, FechaContratacion) 
-                           VALUES (@nombre, @apellido, @identificacion, @cargo, @aerolineaId, @fechaContratacion)";
+            string query = @"INSERT INTO Tripulacion (Nombre, Apellido, Identificacion, Cargo, 
+                            AerolineaId, FechaContratacion) 
+                            VALUES (@nombre, @apellido, @identificacion, @cargo, @aerolineaId, 
+                            @fechaContratacion)";
 
             MySqlCommand cmd = new MySqlCommand(query, conexion);
             cmd.Parameters.AddWithValue("@nombre", nombre);
@@ -48,10 +46,6 @@ public class TripulacionDAO
         }
     }
 
-
-
-
-
     // Consultar todos los tripulantes
     public DataTable ConsultarTripulantes()
     {
@@ -60,7 +54,9 @@ public class TripulacionDAO
         {
             conexion = conexionDB.ObtenerConexion();
 
-            string query = "SELECT Id, Nombre, Apellido, Identificacion, Cargo, AerolineaId, FechaContratacion, Activo FROM Tripulacion";
+            string query = @"SELECT Id, Nombre, Apellido, Identificacion, Cargo, 
+                            AerolineaId, FechaContratacion, Activo 
+                            FROM Tripulacion";
 
             MySqlDataAdapter adapter = new MySqlDataAdapter(query, conexion);
             DataTable dt = new DataTable();
@@ -78,18 +74,21 @@ public class TripulacionDAO
         }
     }
 
-
-    // Actualizar tripulante
-    public bool ActualizarTripulante(int id, string nombre, string apellido, string identificacion, string cargo, int aerolineaId, DateTime fechaContratacion)
+    // Actualizar tripulante - CORREGIDO
+    public bool ActualizarTripulante(int id, string nombre, string apellido, string identificacion,
+                                     string cargo, int aerolineaId, DateTime fechaContratacion)
     {
         MySqlConnection conexion = null;
         try
         {
             conexion = conexionDB.ObtenerConexion();
 
-            string query = @"UPDATE Tripulante 
-                       SET Nombre = @nombre, Apellido = @apellido, Identificacion = @identificacion, Cargo = @cargo, AerolineaId=@aerolineaId, FechaContratacion=@fechaContratacion 
-                       WHERE Id = @id";
+            // CORREGIDO: Era "Tripulante", ahora es "Tripulacion"
+            string query = @"UPDATE Tripulacion 
+                            SET Nombre = @nombre, Apellido = @apellido, 
+                            Identificacion = @identificacion, Cargo = @cargo, 
+                            AerolineaId = @aerolineaId, FechaContratacion = @fechaContratacion 
+                            WHERE Id = @id";
 
             MySqlCommand cmd = new MySqlCommand(query, conexion);
             cmd.Parameters.AddWithValue("@id", id);
@@ -112,8 +111,6 @@ public class TripulacionDAO
             conexionDB.CerrarConexion(conexion);
         }
     }
-
-
 
     // Eliminar tripulacion (desactivar)
     public bool EliminarTripulacion(int id)
@@ -140,7 +137,4 @@ public class TripulacionDAO
             conexionDB.CerrarConexion(conexion);
         }
     }
-
-
-
 }

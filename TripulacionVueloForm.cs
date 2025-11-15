@@ -1,19 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Sistema_de_Boletos_Aéreos
 {
     public partial class TripulacionVueloForm : Form
     {
-
-
         private TripulacionVueloDAO tripulacionVueloDAO;
         private int tripulacionVueloIdSeleccionado = 0;
 
@@ -21,6 +13,23 @@ namespace Sistema_de_Boletos_Aéreos
         {
             InitializeComponent();
             tripulacionVueloDAO = new TripulacionVueloDAO();
+        }
+
+        private void TripulacionVueloForm_Load(object sender, EventArgs e)
+        {
+            CargarTripulacionesVuelo();
+            CargarTripulaciones();
+            CargarVuelos();
+            ConfigurarDataGridView();
+            LimpiarCampos();
+        }
+
+        private void ConfigurarDataGridView()
+        {
+            dgvTripulacionVuelo.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvTripulacionVuelo.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvTripulacionVuelo.MultiSelect = false;
+            dgvTripulacionVuelo.ReadOnly = true;
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -35,7 +44,6 @@ namespace Sistema_de_Boletos_Aéreos
 
                 if (tripulacionVueloIdSeleccionado == 0) // Nuevo tripulacion vuelo
                 {
-
                     bool resultado = tripulacionVueloDAO.InsertarTripulacionVuelo(
                         vueloId,
                         tripulacionId
@@ -43,7 +51,7 @@ namespace Sistema_de_Boletos_Aéreos
 
                     if (resultado)
                     {
-                        MessageBox.Show("Tripulacion vuelo guardada exitosamente!", "Éxito",
+                        MessageBox.Show("Tripulación asignada al vuelo exitosamente!", "Éxito",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                         CargarVuelos();
                         CargarTripulaciones();
@@ -51,7 +59,7 @@ namespace Sistema_de_Boletos_Aéreos
                         LimpiarCampos();
                     }
                 }
-                else // Actualizar aerolinea
+                else // Actualizar
                 {
                     bool resultado = tripulacionVueloDAO.ActualizarTripulacionVuelo(
                         tripulacionVueloIdSeleccionado,
@@ -61,7 +69,7 @@ namespace Sistema_de_Boletos_Aéreos
 
                     if (resultado)
                     {
-                        MessageBox.Show("Tripulacion vuelo actualizado exitosamente!", "Éxito",
+                        MessageBox.Show("Asignación actualizada exitosamente!", "Éxito",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                         CargarVuelos();
                         CargarTripulaciones();
@@ -72,16 +80,13 @@ namespace Sistema_de_Boletos_Aéreos
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al guardar la tripulacion vuelo: " + ex.Message, "Error",
+                MessageBox.Show("Error al guardar la asignación: " + ex.Message, "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-
         private bool ValidarCampos()
         {
-
-
             if (cmbVuelo.SelectedIndex == -1)
             {
                 MessageBox.Show("Seleccione un vuelo", "Campo requerido",
@@ -89,17 +94,17 @@ namespace Sistema_de_Boletos_Aéreos
                 cmbVuelo.Focus();
                 return false;
             }
+
             if (cmbTripulacion.SelectedIndex == -1)
             {
-                MessageBox.Show("Seleccione una tripulacion", "Campo requerido",
+                MessageBox.Show("Seleccione una tripulación", "Campo requerido",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                cmbVuelo.Focus();
+                cmbTripulacion.Focus();
                 return false;
             }
 
             return true;
         }
-
 
         private void CargarTripulacionesVuelo()
         {
@@ -107,12 +112,57 @@ namespace Sistema_de_Boletos_Aéreos
             {
                 DataTable dt = tripulacionVueloDAO.ConsultarTripulacionVuelo();
                 dgvTripulacionVuelo.DataSource = dt;
-
-
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar la tripulacion vuelo: " + ex.Message, "Error",
+                MessageBox.Show("Error al cargar asignaciones: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // CORREGIDO: Método que estaba vacío
+        private void CargarVuelos()
+        {
+            try
+            {
+                VueloDAO vuelo = new VueloDAO();
+                DataTable dt = vuelo.ConsultarVuelos();
+
+                // Crear columna combinada para mostrar información completa del vuelo
+                dt.Columns.Add("DescripcionVuelo", typeof(string),
+                    "NumeroVuelo + ' - ' + CiudadOrigen + ' → ' + CiudadDestino");
+
+                cmbVuelo.DataSource = dt;
+                cmbVuelo.DisplayMember = "DescripcionVuelo";
+                cmbVuelo.ValueMember = "Id";
+                cmbVuelo.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar vuelos: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void CargarTripulaciones()
+        {
+            try
+            {
+                TripulacionDAO tripulacion = new TripulacionDAO();
+                DataTable dt = tripulacion.ConsultarTripulantes();
+
+                // Crear columna combinada para mostrar información completa
+                dt.Columns.Add("DescripcionTripulacion", typeof(string),
+                    "Nombre + ' ' + Apellido + ' - ' + Cargo + ' (' + Identificacion + ')'");
+
+                cmbTripulacion.DataSource = dt;
+                cmbTripulacion.DisplayMember = "DescripcionTripulacion";
+                cmbTripulacion.ValueMember = "Id";
+                cmbTripulacion.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar tripulantes: " + ex.Message, "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -121,7 +171,7 @@ namespace Sistema_de_Boletos_Aéreos
         {
             if (dgvTripulacionVuelo.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Por favor seleccione una tripulacion vuelo de la lista", "Advertencia",
+                MessageBox.Show("Por favor seleccione una asignación de la lista", "Advertencia",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -131,17 +181,14 @@ namespace Sistema_de_Boletos_Aéreos
                 DataGridViewRow row = dgvTripulacionVuelo.SelectedRows[0];
 
                 tripulacionVueloIdSeleccionado = Convert.ToInt32(row.Cells["Id"].Value);
-
-                cmbTripulacion.SelectedValue = row.Cells["TripulacionId"].Value;
                 cmbVuelo.SelectedValue = row.Cells["VueloId"].Value;
-
-
+                cmbTripulacion.SelectedValue = row.Cells["TripulacionId"].Value;
 
                 btnGuardar.Text = "Actualizar";
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar datos de la tripulacion del vuelo: " + ex.Message, "Error",
+                MessageBox.Show("Error al cargar datos de la asignación: " + ex.Message, "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -151,68 +198,26 @@ namespace Sistema_de_Boletos_Aéreos
             LimpiarCampos();
         }
 
-        private void TripulacionVueloForm_Load(object sender, EventArgs e)
-        {
-            CargarTripulacionesVuelo();
-            CargarTripulaciones();
-            CargarVuelos();
-            ConfigurarDataGridView();
-            LimpiarCampos();
-        }
-
-        private void dgvTripulacionVuelo_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-
         private void LimpiarCampos()
         {
             tripulacionVueloIdSeleccionado = 0;
             cmbVuelo.SelectedIndex = -1;
             cmbTripulacion.SelectedIndex = -1;
 
-
             btnGuardar.Text = "Guardar";
-
             cmbVuelo.Focus();
         }
 
-
-        private void CargarVuelos()
+        private void dgvTripulacionVuelo_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
-        }
-
-        private void ConfigurarDataGridView()
-        {
-            dgvTripulacionVuelo.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvTripulacionVuelo.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvTripulacionVuelo.MultiSelect = false;
-            dgvTripulacionVuelo.ReadOnly = true;
-        }
-
-
-        private void CargarTripulaciones()
-        {
-            TripulacionDAO tripulacion = new TripulacionDAO();
-            DataTable dt = tripulacion.ConsultarTripulantes();
-
-            cmbTripulacion.DataSource = dt;
-
-
-            dt.Columns.Add("DescripcionTripulacion", typeof(string), "Nombre + ' ' + Apellido + ' ' + Identificacion");
-
-            cmbTripulacion.DisplayMember = "DescripcionTripulacion";
-            cmbTripulacion.ValueMember = "Id";
-
+            // Método vacío - evento no usado
         }
 
         private void dgvTripulacionVuelo_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
-              button1_Click(sender, e);
+                button1_Click(sender, e);
             }
         }
     }
