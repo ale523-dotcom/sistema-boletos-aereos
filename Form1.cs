@@ -33,14 +33,39 @@ namespace Sistema_de_Boletos_Aéreos
             formUsuarios.ShowDialog();
         }
 
-        private void btnGestionUsuarios_Click_1(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void btnGestionAerolineas_Click(object sender, EventArgs e)
         {
+            AerolineasForm formAerolineas = new AerolineasForm();
+            formAerolineas.ShowDialog();
+        }
 
+        private void btnGestionarPasajero_Click(object sender, EventArgs e)
+        {
+            PasajerosForm formPasajeros = new PasajerosForm();
+            formPasajeros.ShowDialog();
+        }
+
+        private void btnGestionarRutas_Click(object sender, EventArgs e)
+        {
+            RutasForm formRutas = new RutasForm();
+            formRutas.ShowDialog();
+        }
+
+        private void btnGestionarAviones_Click(object sender, EventArgs e)
+        {
+            AvionForm formAvion = new AvionForm();
+            formAvion.ShowDialog();
+        }
+
+        private void btnGestionarTripulacion_Click(object sender, EventArgs e)
+        {
+            TripulacionForm formTripulacion = new TripulacionForm();
+            formTripulacion.ShowDialog();
         }
     }
 }

@@ -226,7 +226,7 @@
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(350, 15);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(265, 26);
+            this.label6.Size = new System.Drawing.Size(288, 26);
             this.label6.TabIndex = 3;
             this.label6.Text = "GESTIÓN DE USUARIOS";
             // 
