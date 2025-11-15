@@ -299,5 +299,9 @@ namespace Sistema_de_Boletos_Aéreos
             }
         }
 
+        private void cmbAerolinea_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -117,11 +117,19 @@ namespace Sistema_de_Boletos_Aéreos
             // 
             // cmbAerolinea
             // 
+            this.cmbAerolinea.BackColor = System.Drawing.Color.White;
+            this.cmbAerolinea.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.cmbAerolinea.FormattingEnabled = true;
+            this.cmbAerolinea.Items.AddRange(new object[] {
+            "AVIANCA",
+            "VOLARIS",
+            "DELTA",
+            "IBERIA"});
             this.cmbAerolinea.Location = new System.Drawing.Point(112, 162);
             this.cmbAerolinea.Name = "cmbAerolinea";
             this.cmbAerolinea.Size = new System.Drawing.Size(236, 21);
             this.cmbAerolinea.TabIndex = 8;
+            this.cmbAerolinea.SelectedIndexChanged += new System.EventHandler(this.cmbAerolinea_SelectedIndexChanged);
             // 
             // label4
             // 
