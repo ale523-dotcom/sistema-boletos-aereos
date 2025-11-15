@@ -9,32 +9,63 @@ namespace Sistema_de_Boletos_Aéreos
         public DashboardForm()
         {
             InitializeComponent();
-            PersonalizarBotones();
         }
 
         private void DashboardForm_Load(object sender, EventArgs e)
         {
             // Configuraciones adicionales al cargar
             this.Text = "Sistema de Boletos Aéreos - Dashboard";
+
+            // Aplicar estilos a todos los botones
+            AplicarEstilosModernos();
         }
 
-        private void PersonalizarBotones()
+        private void AplicarEstilosModernos()
         {
-            // Efecto hover para todos los botones
-            foreach (Control control in this.Controls)
+            // Aplicar bordes redondeados y sombras a los paneles
+            panelOperaciones.Paint += Panel_Paint;
+            panelCatalogos.Paint += Panel_Paint;
+        }
+
+        private void Panel_Paint(object sender, PaintEventArgs e)
+        {
+            // Dibujar sombra suave en los paneles
+            Panel panel = sender as Panel;
+            if (panel != null)
             {
-                if (control is Button btn)
+                using (var pen = new Pen(Color.FromArgb(30, 0, 0, 0), 2))
                 {
-                    btn.MouseEnter += (s, e) =>
-                    {
-                        btn.BackColor = AjustarBrillo(btn.BackColor, -30);
-                        btn.Cursor = Cursors.Hand;
-                    };
-                    btn.MouseLeave += (s, e) =>
-                    {
-                        btn.BackColor = AjustarBrillo(btn.BackColor, 30);
-                    };
+                    e.Graphics.DrawRectangle(pen, 0, 0, panel.Width - 1, panel.Height - 1);
                 }
+            }
+        }
+
+        // ===== EFECTOS HOVER CON ANIMACIÓN =====
+        private void Btn_MouseEnter(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            if (btn != null)
+            {
+                // Guardar color original
+                btn.Tag = btn.BackColor;
+
+                // Cambiar a color más brillante y aumentar tamaño de fuente
+                btn.BackColor = AjustarBrillo(btn.BackColor, 30);
+                btn.Font = new Font(btn.Font.FontFamily, btn.Font.Size + 1, btn.Font.Style);
+
+                // Cambiar cursor
+                btn.Cursor = Cursors.Hand;
+            }
+        }
+
+        private void Btn_MouseLeave(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            if (btn != null && btn.Tag != null)
+            {
+                // Restaurar color original
+                btn.BackColor = (Color)btn.Tag;
+                btn.Font = new Font(btn.Font.FontFamily, btn.Font.Size - 1, btn.Font.Style);
             }
         }
 
@@ -55,7 +86,7 @@ namespace Sistema_de_Boletos_Aéreos
 
         private void btnVuelos_Click(object sender, EventArgs e)
         {
-                AbrirFormulario(new VueloForm(), "Gestión de Vuelos");
+            AbrirFormulario(new VueloForm(), "Gestión de Vuelos");
         }
 
         private void btnTripulacion_Click(object sender, EventArgs e)
