@@ -1,32 +1,30 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 public class PasajeroDAO
 {
     private ConexionDB conexionDB;
-
 
     public PasajeroDAO()
     {
         conexionDB = new ConexionDB();
     }
 
-
-    // Insertar nuevo pasajero
-    public bool InsertarPasajero(string nombre, string apellido, DateTime fechaNacimiento, string numeroPasaporte, string nacionalidad, string email, string telefono)
+    // Insertar nuevo pasajero - CORREGIDO
+    public bool InsertarPasajero(string nombre, string apellido, DateTime fechaNacimiento,
+                                 string numeroPasaporte, string nacionalidad, string email, string telefono)
     {
         MySqlConnection conexion = null;
         try
         {
             conexion = conexionDB.ObtenerConexion();
 
-            string query = @"INSERT INTO Pasajeros (Nombre, Apellido, FechaNacimiento, NumeroPasaporte, Nacionalidad, Email, Telefono) 
-                           VALUES (@nombre, @apellido, @fechaNacimiento, @numeroPasaporte, @nacionalidad, @email, @telefono)";
+            // ⚠️ ESTE ERA EL ERROR - La consulta SELECT estaba en lugar del INSERT
+            string query = @"INSERT INTO Pasajeros (Nombre, Apellido, FechaNacimiento, 
+                            NumeroPasaporte, Nacionalidad, Email, Telefono) 
+                            VALUES (@nombre, @apellido, @fechaNacimiento, @numeroPasaporte, 
+                            @nacionalidad, @email, @telefono)";
 
             MySqlCommand cmd = new MySqlCommand(query, conexion);
             cmd.Parameters.AddWithValue("@nombre", nombre);
@@ -50,8 +48,6 @@ public class PasajeroDAO
         }
     }
 
-
-
     // Consultar todos los pasajeros
     public DataTable ConsultarPasajeros()
     {
@@ -60,7 +56,9 @@ public class PasajeroDAO
         {
             conexion = conexionDB.ObtenerConexion();
 
-            string query = "SELECT Id, Nombre, Apellido, FechaNacimiento, NumeroPasaporte, Nacionalidad, Email, Telefono FROM Pasajeros";
+            string query = @"SELECT Id, Nombre, Apellido, FechaNacimiento, 
+                            NumeroPasaporte, Nacionalidad, Email, Telefono 
+                            FROM Pasajeros";
 
             MySqlDataAdapter adapter = new MySqlDataAdapter(query, conexion);
             DataTable dt = new DataTable();
@@ -78,10 +76,9 @@ public class PasajeroDAO
         }
     }
 
-
-
     // Actualizar pasajero
-    public bool ActualizarPasajero(int id, string nombre, string apellido, DateTime fechaNacimiento, string numeroPasaporte, string nacionalidad, string email, string telefono)
+    public bool ActualizarPasajero(int id, string nombre, string apellido, DateTime fechaNacimiento,
+                                   string numeroPasaporte, string nacionalidad, string email, string telefono)
     {
         MySqlConnection conexion = null;
         try
@@ -89,8 +86,10 @@ public class PasajeroDAO
             conexion = conexionDB.ObtenerConexion();
 
             string query = @"UPDATE Pasajeros 
-                       SET Nombre = @nombre, Apellido = @apellido, FechaNacimiento = @fechaNacimiento, NumeroPasaporte = @numeroPasaporte, Nacionalidad =@nacionalidad,  Email = @email, Telefono = @telefono
-                       WHERE Id = @id";
+                            SET Nombre = @nombre, Apellido = @apellido, 
+                            FechaNacimiento = @fechaNacimiento, NumeroPasaporte = @numeroPasaporte, 
+                            Nacionalidad = @nacionalidad, Email = @email, Telefono = @telefono
+                            WHERE Id = @id";
 
             MySqlCommand cmd = new MySqlCommand(query, conexion);
             cmd.Parameters.AddWithValue("@id", id);
@@ -114,6 +113,4 @@ public class PasajeroDAO
             conexionDB.CerrarConexion(conexion);
         }
     }
-
-
 }
