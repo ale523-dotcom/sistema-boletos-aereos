@@ -7,8 +7,8 @@ public class ConexionDB
 
     public ConexionDB()
     {
-        // Modifica estos valores con tu configuración
-        connectionString = "Server=localhost;Database=boletos_aereos;Uid=root;Pwd=alex200330;";
+        // Modifique estos valores con tu configuración
+        connectionString = "Server=localhost;Database=boletos_aereos;Uid=root;Pwd=root26;";
     }
 
     public MySqlConnection ObtenerConexion()

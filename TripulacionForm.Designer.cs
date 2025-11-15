@@ -64,7 +64,7 @@ namespace Sistema_de_Boletos_Aéreos
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(112, 24);
+            this.txtNombre.Location = new System.Drawing.Point(112, 28);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(236, 20);
             this.txtNombre.TabIndex = 1;
