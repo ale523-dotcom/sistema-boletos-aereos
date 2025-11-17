@@ -7,7 +7,7 @@ public class ConexionDB
 
     public ConexionDB()
     {
-        // Modifique estos valores con tu configuración
+        // Modifica estos valores con tu configuración
         connectionString = "Server=localhost;Database=boletos_aereos;Uid=root;Pwd=alex200330;";
     }
 
